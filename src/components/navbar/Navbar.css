@@ -1,0 +1,85 @@
+.navbar_container {
+    display: flex !important;
+    align-items: center;
+}
+
+.navbar_logo {
+    margin-left: 2rem;
+    margin-right: 3rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.6rem;
+    width: 60px;
+    height: 60px;
+}
+
+.navbar_big_bar {
+    margin-right: 3rem;
+    width: 4px;
+    min-width: 4px; /* potrzebne, aby nie znikało, przy zmianie szerokości */
+    height: 50px;
+    background-color: black;
+}
+
+.navbar_small_bar {
+    margin-left: 2rem;
+    margin-right: 2rem;
+    width: 3px;
+    height: 25px;
+    background-color: black;
+}
+
+.navbar_icon {
+    font-size: 25px !important;
+}
+
+.navbar_sign_in_btn {
+    text-transform: none !important;
+    font-size: 1rem !important;
+    border-radius: 12px !important;
+}
+
+.navbar_profile_container {
+    margin-right: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+/* MOBILE NAVBAR */
+
+.navbar_mobile_container {
+    display: flex !important;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar_menu_icon {
+    font-size: 30px !important;
+    margin: 0 !important;
+}
+
+.mobile_side_bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    min-width: fit-content;
+    padding-top: 2rem;
+    height: 100%;
+    z-index: 99;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-right: 1rem;
+    padding-left: 1rem;
+    transition: all 0.7s ease;
+    box-shadow:0 0 0 10000px rgba(0,0,0,.50);
+}
+
+.navbar_small_bar_horizontal {
+    width: 85%;
+    height: 1px;
+    background-color: black;
+}
+
+.mobile-menu-opened {
+    overflow: hidden;
+}

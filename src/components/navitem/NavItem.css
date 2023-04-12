@@ -1,0 +1,21 @@
+.nav_item {
+    display: flex;
+    align-items: center;
+    border: none;
+    border-radius: 12px;
+    padding: 0.8rem;
+    transition: 0.2s ease;
+    cursor: pointer;
+    text-decoration: none;
+    color: black;
+}
+
+.nav_item:hover {
+    background-color: white;
+}
+
+.nav_item_text {
+    margin-left: 0.6rem !important;
+    font-weight: 400 !important;
+    font-family: "Poppins" !important;
+}
