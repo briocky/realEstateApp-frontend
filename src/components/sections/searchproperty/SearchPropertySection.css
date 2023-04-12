@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Mono+One&display=swap');
+
+.search_property_container {
+    background-size: cover;
+    background-position: center;
+}
+
+.search_property_heading {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    width: fit-content;
+    height: fit-content;
+    padding: 1.5rem;
+    border: none;
+    border-radius: 12px !important;
+    margin: auto;
+    background-color: rgba(0, 0, 0, 50%) !important;
+    color: white !important;
+}
+
+.search_property_form {
+    display: flex;
+    justify-content: center;
+}

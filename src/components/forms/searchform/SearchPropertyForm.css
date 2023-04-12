@@ -1,0 +1,10 @@
+.vertical_bar {
+    width: 80%;
+    height: 4px;
+}
+
+.search_property_heading_text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
