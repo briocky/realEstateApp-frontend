@@ -37,6 +37,7 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/profile" element={<ProfilePage />} />
             <Route path="/oauth2/redirect" element={<OAuth2Redirect />} />
           </Routes>
         </ThemeProvider>
