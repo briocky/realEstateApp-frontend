@@ -1,4 +1,5 @@
 import { Logout } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 import FormatListNumberedIcon from "@mui/icons-material/FormatListNumbered";
 import {
   Avatar,
@@ -12,9 +13,10 @@ import {
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-export default function ProfileMenu({ user }) {
+export default function ProfileMenu({ user, setUser }) {
   const [profileMenuAnchorEl, setProfileMenuAnchorEl] = useState(null);
   const open = Boolean(profileMenuAnchorEl);
+  const navigate = useNavigate();
 
   function handleProfileClick(e) {
     setProfileMenuAnchorEl(e.currentTarget);
@@ -22,6 +24,12 @@ export default function ProfileMenu({ user }) {
 
   function handleProfileClose(e) {
     setProfileMenuAnchorEl(null);
+  }
+
+  function handleLogout() {
+    handleProfileClose();
+    setUser(null);
+    navigate("/");
   }
 
   return (
@@ -57,7 +65,7 @@ export default function ProfileMenu({ user }) {
           </ListItemIcon>
           Moje oferty
         </MenuItem>
-        <MenuItem onClick={() => handleProfileClose()}>
+        <MenuItem onClick={() => handleLogout()}>
           <ListItemIcon>
             <Logout fontSize="large" sx={{ mr: 2 }} />
           </ListItemIcon>

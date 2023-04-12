@@ -96,7 +96,7 @@ export default function NavbarMobile() {
 
         {/** Profile Data */}
         {user ? (
-          <ProfileMenu user={user} />
+          <ProfileMenu user={user} setUser={setUser} />
         ) : (
           <Button
             component={Link}

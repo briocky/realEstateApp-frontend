@@ -7,6 +7,9 @@ import AuthContext from './components/context/AuthContext';
 import OAuth2Redirect from './components/oauth2/OAuth2Redirect';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
+import ProfilePage from './pages/ProfilePage';
+import AddOfferPage from './pages/AddOfferPage';
+import RequireAuth from './components/requireauth/RequireAuth';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -37,8 +40,9 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/login" element={<LoginPage />} />
-            <Route path="/profile" element={<ProfilePage />} />
             <Route path="/oauth2/redirect" element={<OAuth2Redirect />} />
+            <Route path="/profile" element={<RequireAuth><ProfilePage /></RequireAuth>} />
+            <Route path="/offer/add" element={<RequireAuth><AddOfferPage /></RequireAuth>} />
           </Routes>
         </ThemeProvider>
       </AuthContext.Provider>

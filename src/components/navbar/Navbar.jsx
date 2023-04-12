@@ -76,7 +76,7 @@ export default function Navbar() {
               linkTo={"/offer/add"}
             />
             <Box mr={2} />
-            <ProfileMenu user={user} />
+            <ProfileMenu user={user} setUser={setUser} />
           </Box>
         ) : (
           <Box className="navbar_profile_container">
