@@ -7,10 +7,9 @@ import AuthContext from './components/context/AuthContext';
 import OAuth2Redirect from './components/oauth2/OAuth2Redirect';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
-import ProfilePage from './pages/ProfilePage';
-import AddOfferPage from './pages/AddOfferPage';
 
 function App() {
+  const [user, setUser] = useState(null);
   const theme = createTheme({
     palette: {
       primary: {
@@ -33,11 +32,15 @@ function App() {
 
   return (
     <div className="App">
-      <ThemeProvider theme={theme}>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-        </Routes>
-      </ThemeProvider>
+      <AuthContext.Provider value={{ user, setUser }}>
+        <ThemeProvider theme={theme}>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/oauth2/redirect" element={<OAuth2Redirect />} />
+          </Routes>
+        </ThemeProvider>
+      </AuthContext.Provider>
     </div>
   );
 }

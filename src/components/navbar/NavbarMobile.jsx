@@ -12,6 +12,7 @@ import NavItem from "../navitem/NavItem";
 import "./Navbar.css";
 import { Link } from "react-router-dom";
 import ProfileMenu from "../profilemenu/ProfileMenu";
+import AuthContext from "../context/AuthContext";
 
 const navItemWithIcon = [
   {
@@ -38,6 +39,7 @@ const navItems = navItemWithIcon.map((val, idx) => {
 
 export default function NavbarMobile() {
   const [isMenuCollapsed, setMenuCollapsed] = useState(true);
+  const { user, setUser } = useContext(AuthContext);
   const theme = useTheme();
 
   function collapseMenu() {
