@@ -1,6 +1,6 @@
 import { Button, Typography, useTheme } from "@mui/material";
 import { Box, Container } from "@mui/system";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import logo from "../../assets/logo_v8_no_bg_colors.png";
 import MapsHomeWorkOutlinedIcon from "@mui/icons-material/MapsHomeWorkOutlined";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -18,14 +18,23 @@ const navItemWithIcon = [
   {
     text: "Ogłoszenia",
     icon: <MapsHomeWorkOutlinedIcon className="navbar_icon" />,
+    linkTo: "/offers",
   },
-  { text: "Obserwowane", icon: <FavoriteBorderIcon className="navbar_icon" /> },
-  { text: "Szukaj", icon: <SearchIcon className="navbar_icon" /> },
+  {
+    text: "Obserwowane",
+    icon: <FavoriteBorderIcon className="navbar_icon" />,
+    linkTo: "/",
+  },
+  {
+    text: "Szukaj",
+    icon: <SearchIcon className="navbar_icon" />,
+    linkTo: "/",
+  },
 ];
 
 const navItems = navItemWithIcon.map((val, idx) => {
   return [
-    <NavItem text={val.text} icon={val.icon} key={2 * idx} />,
+    <NavItem text={val.text} icon={val.icon} linkTo={val.linkTo} key={2 * idx} />,
     idx !== navItemWithIcon.length - 1 ? (
       <Box
         key={2 * idx + 1}
@@ -99,14 +108,17 @@ export default function NavbarMobile() {
           <ProfileMenu user={user} setUser={setUser} />
         ) : (
           <Button
-            component={Link}
-            to="/login"
-            variant="contained"
-            color="white"
+            component={Link} to="/login"
+            variant="contained" color="white"
             className="navbar_sign_in_btn"
+            size="small"
           >
-            <AdminPanelSettingsOutlinedIcon />
-            <Box ml="0.6rem" component="span">
+            <AdminPanelSettingsOutlinedIcon sx={{ fontSize: { xs: "14px", sm: "19px" } }} />
+            <Box ml="0.6rem" component="span"
+              sx={{
+                fontSize: { xs: "10px", sm: "14px" },
+                ml: { xs: "0.2rem", sm: "0.6rem" }
+              }}>
               Zaloguj się
             </Box>
           </Button>

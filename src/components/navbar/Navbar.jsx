@@ -1,6 +1,6 @@
 import { Button, useTheme } from "@mui/material";
 import { Box, Container } from "@mui/system";
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import logo from "../../assets/logo_v8_no_bg_colors.png";
 import MapsHomeWorkOutlinedIcon from "@mui/icons-material/MapsHomeWorkOutlined";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -17,7 +17,7 @@ const navItemWithIcon = [
   {
     text: "Ogłoszenia",
     icon: <MapsHomeWorkOutlinedIcon className="navbar_icon" />,
-    linkTo: "/",
+    linkTo: "/offers",
   },
   {
     text: "Obserwowane",

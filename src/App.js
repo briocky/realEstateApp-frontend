@@ -10,6 +10,7 @@ import LoginPage from './pages/LoginPage';
 import ProfilePage from './pages/ProfilePage';
 import AddOfferPage from './pages/AddOfferPage';
 import RequireAuth from './components/requireauth/RequireAuth';
+import ListOffersPage from './pages/ListOffersPage';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -43,6 +44,7 @@ function App() {
             <Route path="/oauth2/redirect" element={<OAuth2Redirect />} />
             <Route path="/profile" element={<RequireAuth><ProfilePage /></RequireAuth>} />
             <Route path="/offer/add" element={<RequireAuth><AddOfferPage /></RequireAuth>} />
+            <Route path="/offers" element={<ListOffersPage />} />
           </Routes>
         </ThemeProvider>
       </AuthContext.Provider>
