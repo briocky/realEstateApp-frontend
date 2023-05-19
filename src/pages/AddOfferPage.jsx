@@ -11,6 +11,7 @@ import Navbar from "../components/navbar/Navbar";
 import NavbarMobile from "../components/navbar/NavbarMobile";
 import AddOfferForm from "../components/forms/addofferform/AddOfferForm";
 import { useState } from "react";
+import bgImg from '../assets/add_offer_background.jpg'
 
 export default function AddOfferPage() {
   const theme = useTheme();
@@ -27,16 +28,18 @@ export default function AddOfferPage() {
           justifyContent: "center",
           width: "100%",
           mx: "auto",
-          position: 'relative'
+          position: 'relative',
+          backgroundImage: `url(${bgImg})`,
+          backgroundSize: "cover"
         }}
       >
-        { alertMessage !== "" && 
-          <Alert severity="error" 
-            sx={{position: 'absolute', top: {xs: 0, sm: "0.5rem"}}}>
-              {alertMessage}
+        {alertMessage !== "" &&
+          <Alert severity="error"
+            sx={{ position: 'absolute', top: { xs: 0, sm: "0.5rem" } }}>
+            {alertMessage}
           </Alert>
         }
-        <Paper elevation={3} sx={{ my: {xs: 0, sm: 10 }, p: { xs: 2, sm: 5 }, width: { xs: "100%", sm: "80%", md: "65%"} }}>
+        <Paper elevation={3} sx={{ my: { xs: 0, sm: 10 }, p: { xs: 2, sm: 5 }, width: { xs: "100%", sm: "80%", md: "65%" } }}>
           <Box
             sx={{
               display: "flex",

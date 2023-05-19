@@ -29,25 +29,25 @@ export default function AddOfferForm({ setAlertMessage }) {
       validationRule: /[A-Za-z]+/,
       error: false,
       errorMessage: "Niepoprawny typ nieruchomości"
-    }, 
+    },
     offerType: {
       value: "",
       validationRule: /[A-Za-z]+/,
       error: false,
       errorMessage: "Niepoprawny typ oferty"
-    }, 
+    },
     roomCount: {
       value: "",
       validationRule: /[+]?[0-9]+/,
       error: false,
       errorMessage: "Niepoprawna liczba pokoi"
-    }, 
+    },
     price: {
       value: "",
       validationRule: /[+]?([0-9]*[.])?[0-9]+/,
       error: false,
       errorMessage: "Cena musi być liczbą"
-    }, 
+    },
     area: {
       value: "",
       validationRule: /[+]?([0-9]*[.])?[0-9]+/,
@@ -61,32 +61,32 @@ export default function AddOfferForm({ setAlertMessage }) {
       errorMessage: "Tytuł musi mieć od 5 do 100 znaków"
     }
   });
-  
+
   const [additionalInfo, setAdditionalInfo] = useState({
     place: {
       value: "",
       validationRule: /^([A-Za-z]+[-]?[ ]?)+$/,
       error: false,
       errorMessage: "Niepoprawna nazwa miejscowości"
-    }, 
+    },
     voivodeship: {
       value: "",
       validationRule: /^[A-Za-z]+[-]?[A-Za-z]*$/,
       error: false,
       errorMessage: "Niepoprawna nazwa województwa"
-    }, 
+    },
     street: {
       value: "",
       validationRule: /^([A-Za-z]+[ ]?)+$/,
       error: false,
       errorMessage: "Niepoprawna nazwa ulicy"
-    }, 
+    },
     buildingNumber: {
       value: "",
       validationRule: /^[0-9]*[a-zA-z]?$/,
       error: false,
       errorMessage: "Niepoprawny numer budynku"
-    }, 
+    },
     apartmentNumber: {
       value: "",
       validationRule: /^[0-9]*$/,
@@ -98,13 +98,13 @@ export default function AddOfferForm({ setAlertMessage }) {
       validationRule: /^[A-Za-z]+[-]?[A-Za-z]*$/,
       error: false,
       errorMessage: "Niepoprawna nazwa powiatu"
-    }, 
+    },
     pictures: {
       value: new Map(),
       validationRule: /[A-Za-z]+/, //TODO
       error: false,
       errorMessage: "Niepoprawny typ zdjęcia"
-    }, 
+    },
     description: {
       value: "",
       validationRule: null,
@@ -131,21 +131,21 @@ export default function AddOfferForm({ setAlertMessage }) {
 
     if (result) {
       let isDataValid = true;
-      if(activeStep === 2) {
+      if (activeStep === 2) {
         let offerData = buildOfferData(basicInfo, additionalInfo);
-        await addOffer(user.token, offerData, additionalInfo.pictures.value)
+        await addOffer(offerData, additionalInfo.pictures.value)
           .then(
             (response) => setAlertMessage(""),
-            (error) => { 
+            (error) => {
               let errorMessage = "Wystąpił problem podczas wysyłania danych. Proszę zweryfikować dane.";
               isDataValid = false;
-              window.scrollTo(0,0);
               setAlertMessage(errorMessage);
+              window.scrollTo(0, 0);
             }
           );
       }
-      
-      if(isDataValid) {
+
+      if (isDataValid) {
         setActiveStep(activeStep + 1);
       }
     }
@@ -185,7 +185,7 @@ export default function AddOfferForm({ setAlertMessage }) {
                 );
               case 1:
                 return (
-                  <AdditionalInfoStage basicInfo={basicInfo} additionalInfo={additionalInfo} 
+                  <AdditionalInfoStage basicInfo={basicInfo} additionalInfo={additionalInfo}
                     setAdditionalInfo={setAdditionalInfo} />
                 );
               case 2:

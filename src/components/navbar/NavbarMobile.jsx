@@ -12,7 +12,9 @@ import NavItem from "../navitem/NavItem";
 import "./Navbar.css";
 import { Link } from "react-router-dom";
 import ProfileMenu from "../profilemenu/ProfileMenu";
-import AuthContext from "../context/AuthContext";
+import { useAuthContext } from "../context/AuthContext";
+import { getBasicUserInfo } from "../../services/userDataService";
+import { TOKEN_KEY_NAME } from "../../constants/consts";
 
 const navItemWithIcon = [
   {
@@ -48,8 +50,21 @@ const navItems = navItemWithIcon.map((val, idx) => {
 
 export default function NavbarMobile() {
   const [isMenuCollapsed, setMenuCollapsed] = useState(true);
-  const { user, setUser } = useContext(AuthContext);
+  const { user, setUser } = useAuthContext();
   const theme = useTheme();
+
+  if (!user.isFetched && sessionStorage.getItem(TOKEN_KEY_NAME)) {
+    getBasicUserInfo().then((response) =>
+      setUser({
+        ...user,
+        firstName: response.data.firstName,
+        lastName: response.data.lastName,
+        pictureUrl: response.data.pictureUrl,
+        token: user.token,
+        isFetched: true,
+      })
+    );
+  }
 
   function collapseMenu() {
     setMenuCollapsed(!isMenuCollapsed);
@@ -104,7 +119,7 @@ export default function NavbarMobile() {
         <Box component="img" className="navbar_logo" src={logo} />
 
         {/** Profile Data */}
-        {user ? (
+        {user.isFetched ? (
           <ProfileMenu user={user} setUser={setUser} />
         ) : (
           <Button

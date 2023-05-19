@@ -1,6 +1,6 @@
 import { Button, useTheme } from "@mui/material";
 import { Box, Container } from "@mui/system";
-import React, { useContext } from "react";
+import React from "react";
 import logo from "../../assets/logo_v8_no_bg_colors.png";
 import MapsHomeWorkOutlinedIcon from "@mui/icons-material/MapsHomeWorkOutlined";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -11,7 +11,9 @@ import NavItem from "../navitem/NavItem";
 import "./Navbar.css";
 import { Link } from "react-router-dom";
 import ProfileMenu from "../profilemenu/ProfileMenu";
-import AuthContext from "../context/AuthContext";
+import { useAuthContext } from "../context/AuthContext";
+import { getBasicUserInfo } from "../../services/userDataService";
+import { TOKEN_KEY_NAME } from "../../constants/consts";
 
 const navItemWithIcon = [
   {
@@ -47,8 +49,21 @@ const navItems = navItemWithIcon.map((val, idx) => {
 });
 
 export default function Navbar() {
-  const { user, setUser } = useContext(AuthContext);
+  const { user, setUser } = useAuthContext();
   const theme = useTheme();
+
+  if (!user.isFetched && sessionStorage.getItem(TOKEN_KEY_NAME)) {
+    getBasicUserInfo().then((response) =>
+      setUser({
+        ...user,
+        firstName: response.data.firstName,
+        lastName: response.data.lastName,
+        pictureUrl: response.data.pictureUrl,
+        token: user.token,
+        isFetched: true,
+      })
+    );
+  }
 
   return (
     <Container
@@ -68,7 +83,7 @@ export default function Navbar() {
         <Box sx={{ display: "flex", alignItems: "center" }}>{navItems}</Box>
 
         {/** Profile Data */}
-        {user ? (
+        {user.isFetched ? (
           <Box sx={{ display: "flex" }}>
             <NavItem
               text={"Dodaj ofertę"}

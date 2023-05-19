@@ -1,7 +1,8 @@
-import axios from "axios";
-import { BASE_URL } from "../constants/backendConsts";
+import { BASE_URL } from "../constants/consts";
+import tokenAxios from '../utils/tokenAxios';
+import noConfigAxios from "../utils/noConfigAxios";
 
-function addOffer(token, offerData, realEstatePictures) {
+function addOffer(offerData, realEstatePictures) {
   const destinationUrl = BASE_URL + "/api/v1/offer/add";
   const offerFormData = new FormData();
 
@@ -11,12 +12,11 @@ function addOffer(token, offerData, realEstatePictures) {
     offerFormData.append("picture", picture.file);
   });
 
-  return axios.post(
+  return tokenAxios.post(
     destinationUrl,
     offerFormData,
     {
       headers: {
-        "Authorization": "Bearer " + token,
         "Content-Type": "multipart/form-data"
       }
     }
@@ -25,11 +25,18 @@ function addOffer(token, offerData, realEstatePictures) {
 
 function searchOffers(searchData, params) {
   const destinationUrl = BASE_URL + "/api/v1/offer/search";
-  return axios.post(
+  return noConfigAxios.post(
     destinationUrl,
     !searchData ? {} : searchData,
     { params: params ? params : null }
   );
 }
 
-export { addOffer, searchOffers }
+function getOfferDetails(offerId) {
+  const destinationUrl = BASE_URL + "/api/v1/offer/" + offerId;
+  return tokenAxios.get(
+    destinationUrl
+  );
+}
+
+export { addOffer, searchOffers, getOfferDetails }

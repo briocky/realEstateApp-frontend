@@ -11,9 +11,13 @@ import ProfilePage from './pages/ProfilePage';
 import AddOfferPage from './pages/AddOfferPage';
 import RequireAuth from './components/requireauth/RequireAuth';
 import ListOffersPage from './pages/ListOffersPage';
+import OfferDetailsPage from './pages/OfferDetailsPage';
+import NotFoundPage from './pages/NotFoundPage';
+import { TOKEN_KEY_NAME } from './constants/consts';
 
 function App() {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({ isFetched: false, token: sessionStorage.getItem(TOKEN_KEY_NAME) });
+
   const theme = createTheme({
     palette: {
       primary: {
@@ -45,6 +49,8 @@ function App() {
             <Route path="/profile" element={<RequireAuth><ProfilePage /></RequireAuth>} />
             <Route path="/offer/add" element={<RequireAuth><AddOfferPage /></RequireAuth>} />
             <Route path="/offers" element={<ListOffersPage />} />
+            <Route path="/notfound" element={<NotFoundPage />} />
+            <Route path="/offer/details/:id" element={<OfferDetailsPage />} />
           </Routes>
         </ThemeProvider>
       </AuthContext.Provider>

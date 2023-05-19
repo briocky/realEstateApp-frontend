@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { TOKEN_KEY_NAME } from "../../constants/consts";
 
 export default function ProfileMenu({ user, setUser }) {
   const [profileMenuAnchorEl, setProfileMenuAnchorEl] = useState(null);
@@ -28,7 +29,8 @@ export default function ProfileMenu({ user, setUser }) {
 
   function handleLogout() {
     handleProfileClose();
-    setUser(null);
+    sessionStorage.removeItem(TOKEN_KEY_NAME);
+    setUser({ isFetched: false });
     navigate("/");
   }
 

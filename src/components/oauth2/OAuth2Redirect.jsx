@@ -1,14 +1,25 @@
 import { useContext, useLayoutEffect } from "react";
 import { Navigate } from "react-router-dom";
 import { getBasicUserInfo } from "../../services/userDataService";
-import AuthContext from "../context/AuthContext";
+import { useAuthContext } from "../context/AuthContext";
+import { TOKEN_KEY_NAME } from "../../constants/consts";
 
 export default function OAuth2Redirect() {
-  const { user, setUser } = useContext(AuthContext);
+  const { user, setUser } = useAuthContext();
+
   useLayoutEffect(() => {
-    const jwtToken = extractUrlParameter("token");
+    let cookies = new Map();
+
+    document.cookie.split(";").forEach((cookie) => {
+      let [key, value] = cookie.split("=");
+      cookies.set(key.trim(), value.trim());
+    });
+
+    const jwtToken = cookies.get(TOKEN_KEY_NAME);
+    sessionStorage.setItem(TOKEN_KEY_NAME, jwtToken);
+
     if (jwtToken) {
-      getBasicUserInfo(jwtToken).then((response) =>
+      getBasicUserInfo().then((response) =>
         setUser({
           ...user,
           firstName: response.data.firstName,
@@ -19,10 +30,6 @@ export default function OAuth2Redirect() {
       );
     }
   }, [user, setUser]);
-
-  function extractUrlParameter(key) {
-    return new URLSearchParams(window.location.search).get(key);
-  }
 
   return <Navigate to="/" />;
 }

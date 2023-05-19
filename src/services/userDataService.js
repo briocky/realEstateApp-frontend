@@ -1,11 +1,10 @@
-import axios from "axios";
-import { BASE_URL } from '../constants/backendConsts'
+import tokenAxios from '../utils/tokenAxios';
+import { BASE_URL } from '../constants/consts'
 
-function getBasicUserInfo(token) {
+function getBasicUserInfo() {
     const destinationUrl = BASE_URL + "/api/v1/user/info";
-    return axios.get(
-        destinationUrl,
-        { headers: { "Authorization": "Bearer " + token } }
+    return tokenAxios.get(
+        destinationUrl
     );
 }
 
