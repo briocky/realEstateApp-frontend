@@ -3,6 +3,7 @@ import Navbar from "../components/navbar/Navbar";
 import NavbarMobile from "../components/navbar/NavbarMobile";
 import { useTheme } from "@emotion/react";
 import { useLocation } from "react-router-dom";
+import Footer from "../components/footer/Footer";
 
 export default function NotFoundPage() {
   const theme = useTheme();
@@ -10,7 +11,7 @@ export default function NotFoundPage() {
   const location = useLocation();
 
   return (
-    <Container maxWidth={false} disableGutters>
+    <Container maxWidth={false} disableGutters sx={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
       {!matches && <Navbar />}
       {matches && <NavbarMobile />}
       <Paper elevation={4} sx={{ width: "60%", mx: "auto", my: 5 }}>
@@ -22,6 +23,7 @@ export default function NotFoundPage() {
           }
         </Alert>
       </Paper>
+      <Footer />
     </Container>
   )
 }

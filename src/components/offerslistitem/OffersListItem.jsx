@@ -1,4 +1,4 @@
-import { Box, Button, Grid, List, ListItem, ListItemText, Paper, Typography } from "@mui/material";
+import { Box, Button, Grid, IconButton, List, ListItem, ListItemText, Paper, Tooltip, Typography } from "@mui/material";
 import StraightenIcon from '@mui/icons-material/Straighten';
 import NumbersIcon from '@mui/icons-material/Numbers';
 import PlaceIcon from '@mui/icons-material/Place';
@@ -6,10 +6,23 @@ import GiteIcon from '@mui/icons-material/Gite';
 import PaidIcon from '@mui/icons-material/Paid';
 import { Link } from "react-router-dom";
 import noHouseImage from '../../assets/no_house_picture.png';
+import CloseIcon from '@mui/icons-material/Close';
+import { deleteOffer } from "../../services/offerService";
 
-export default function OffersListItem({ elementData }) {
+export default function OffersListItem({ elementData, myOffersList = false, deleteOfferFromList }) {
+  function handleOfferDelete() {
+    deleteOffer(elementData.id).then((response) => {
+      deleteOfferFromList(elementData.id);
+    });
+  }
+
   return (
-    <Paper elevation={3} sx={{ p: 3 }}>
+    <Paper elevation={3} sx={{ p: 3, position: "relative" }}>
+      <Tooltip title="Usuń" sx={{ display: !myOffersList && "none", position: "absolute", top: 6, right: 6 }}>
+        <IconButton onClick={handleOfferDelete} color="error">
+          <CloseIcon />
+        </IconButton>
+      </Tooltip>
       <Grid container>
         <Grid item xs={12}>
           <Typography variant="h6" fontFamily={"poppins"}>{elementData.title}</Typography>

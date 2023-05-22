@@ -13,8 +13,8 @@ export default function DetailBox({ icon, data, title }) {
         <Typography sx={{ ml: 1 }} variant="p" color={"grey"}>{title}</Typography>
       </Box>
       <Box>
-        {data.map((detail) =>
-          <Box sx={{ display: "flex" }}>
+        {data.map((detail, idx) =>
+          <Box sx={{ display: "flex" }} key={idx}>
             <Typography sx={{ mr: 1 }}><strong>{`${detail[0]}:`}</strong></Typography>
             <Typography>{detail[1]}</Typography>
           </Box>)}

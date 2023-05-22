@@ -32,11 +32,22 @@ function searchOffers(searchData, params) {
   );
 }
 
-function getOfferDetails(offerId) {
+function getOfferDetails(offerId, token) {
   const destinationUrl = BASE_URL + "/api/v1/offer/" + offerId;
-  return tokenAxios.get(
-    destinationUrl
-  );
+  if (token)
+    return tokenAxios.get(destinationUrl);
+  else
+    return noConfigAxios.get(destinationUrl);
 }
 
-export { addOffer, searchOffers, getOfferDetails }
+function getMyOffers(params) {
+  const destinationUrl = BASE_URL + "/api/v1/offer/my";
+  return tokenAxios.get(destinationUrl, { params: params });
+}
+
+function deleteOffer(id) {
+  const destinationUrl = BASE_URL + "/api/v1/offer/delete/" + id;
+  return tokenAxios.delete(destinationUrl);
+}
+
+export { addOffer, searchOffers, getOfferDetails, getMyOffers, deleteOffer }

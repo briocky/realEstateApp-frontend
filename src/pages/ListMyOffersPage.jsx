@@ -1,28 +1,20 @@
+import { getMyOffers } from "../services/offerService";
 import { useTheme } from "@emotion/react"
-import { Alert, Box, Button, Container, Grid, Pagination, Paper, Typography, useMediaQuery } from "@mui/material";
+import { Alert, Box, Button, Container, Grid, IconButton, Pagination, Paper, Snackbar, Typography, useMediaQuery } from "@mui/material";
 import Navbar from "../components/navbar/Navbar";
 import NavbarMobile from "../components/navbar/NavbarMobile";
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import OffersListItem from "../components/offerslistitem/OffersListItem";
 import { useEffect, useState } from "react";
-import { searchOffers } from "../services/offerService";
-import { useLocation } from "react-router-dom";
 import Footer from "../components/footer/Footer";
+import CloseIcon from '@mui/icons-material/Close';
 
 const OFFERS_PER_PAGE = 10;
 
-function mapOffers(offers) {
-  return offers.map((offer, index) =>
-    <Grid item xs={12} key={index}>
-      <OffersListItem elementData={offer} />
-    </Grid>
-  );
-}
 
-export default function ListOffersPage() {
-  const location = useLocation();
+export default function ListMyOffersPage() {
+  const [popup, setPopup] = useState({ message: "", show: false });
   const [offers, setOffers] = useState([]);
-  const searchCriteria = location.state;
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const theme = useTheme();
@@ -34,25 +26,58 @@ export default function ListOffersPage() {
       pageSize: OFFERS_PER_PAGE
     };
 
-    searchOffers(searchCriteria, queryParams)
-      .then((response) => {
-        let fetchedOffers = [];
-        response.data.offers.forEach(offer => {
-          fetchedOffers.push(offer);
-        });
-        setOffers(fetchedOffers);
-        setTotalPages(response.data.totalPages);
+    getMyOffers(queryParams).then((response) => {
+      let fetchedOffers = [];
+      response.data.offers.forEach(offer => {
+        fetchedOffers.push(offer);
       });
-  }, [searchCriteria, currentPage]);
+      setOffers(fetchedOffers);
+      setTotalPages(response.data.totalPages);
+    });
+
+  }, [currentPage]);
 
   function handlePageChange(event, page) {
     setCurrentPage(page);
+  }
+
+  function deleteOffer(id) {
+    let updatedOffers = offers.filter((offer) => offer.id !== id);
+    if (offers.length - 1 === 0) {
+      setTotalPages(0);
+    }
+    setOffers(updatedOffers);
+    setPopup({ ...popup, message: "Pomyślnie usunięto!", show: true })
+  }
+
+  function handlePopupClose() {
+    setPopup({ ...popup, show: false });
+  }
+
+  function mapOffers(offers) {
+    return offers.map((offer, index) =>
+      <Grid item xs={12} key={index}>
+        <OffersListItem elementData={offer} myOffersList={true} deleteOfferFromList={deleteOffer} />
+      </Grid>
+    );
   }
 
   return (
     <Container maxWidth={false} disableGutters sx={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
       {!matches && <Navbar />}
       {matches && <NavbarMobile />}
+
+      <Snackbar
+        open={popup.show}
+        autoHideDuration={4000}
+        onClose={handlePopupClose}
+        message={popup.message}
+        action={
+          <IconButton onClick={handlePopupClose} color="error">
+            <CloseIcon />
+          </IconButton>
+        }
+      />
 
       <Box display="flex" justifyContent={"center"} pt={4} sx={{ backgroundColor: "#F0F7F7", minHeight: "90vh" }}>
         <Paper elevation={4}
@@ -68,7 +93,7 @@ export default function ListOffersPage() {
             <Grid item xs={12} display={"flex"} justifyContent={"space-between"}>
               <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
                 <Typography fontFamily={"poppins"} fontSize={{ xs: 23, sm: 25, md: 28 }}>
-                  Lista ofert
+                  Moje oferty
                 </Typography>
                 <Box
                   sx={{ backgroundColor: theme.palette.primary.main, width: "100%", height: "4px" }}
@@ -83,7 +108,7 @@ export default function ListOffersPage() {
             </Grid>
             {totalPages === 0 &&
               <Grid item xs={12} display={"flex"} justifyContent={"center"}>
-                <Alert severity="warning">Nie znaleziono ofert o podanych kryteriach!</Alert>
+                <Alert severity="warning">Nie masz żadnych ofert wystawionych!</Alert>
               </Grid>
             }
             {mapOffers(offers)}

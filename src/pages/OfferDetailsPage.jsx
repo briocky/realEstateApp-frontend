@@ -13,8 +13,11 @@ import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import ConnectWithoutContactOutlinedIcon from '@mui/icons-material/ConnectWithoutContactOutlined';
 import AttachMoneyOutlinedIcon from '@mui/icons-material/AttachMoneyOutlined';
 import AssignmentOutlinedIcon from '@mui/icons-material/AssignmentOutlined';
+import Footer from "../components/footer/Footer";
+import { useAuthContext } from "../components/context/AuthContext";
 
 export default function OfferDetailsPage() {
+  const { user } = useAuthContext();
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down('md'));
   const [offer, setOffer] = useState(null);
@@ -73,7 +76,7 @@ export default function OfferDetailsPage() {
     if (isNaN(idAsInt) || idAsInt < 0)
       return navigate("/notfound");
 
-    getOfferDetails(idAsInt)
+    getOfferDetails(idAsInt, user.token)
       .then((response) => {
         setOffer(response.data);
       }, (error) => {
@@ -94,10 +97,10 @@ export default function OfferDetailsPage() {
           });
         }
       })
-  }, []);
+  }, [id, navigate]);
 
   return (
-    <Container maxWidth={false} disableGutters >
+    <Container maxWidth={false} disableGutters sx={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
       {!matches && <Navbar />}
       {matches && <NavbarMobile />}
       <Box sx={{
@@ -119,7 +122,7 @@ export default function OfferDetailsPage() {
                 display: "flex", flexDirection: { xs: "row", md: "column" },
                 flexWrap: "wrap", justifyContent: "space-between", mt: { xs: 2, md: 0 }
               }}>
-                {dataSections.map((section) => <DetailBox title={section.title} icon={section.icon} data={section.data} />)}
+                {dataSections.map((section, idx) => <DetailBox key={idx} title={section.title} icon={section.icon} data={section.data} />)}
               </Box>
             </Box>
             <Divider sx={{ my: 2 }} />
@@ -138,6 +141,7 @@ export default function OfferDetailsPage() {
           </Paper>
         }
       </Box>
+      <Footer />
     </Container>
   );
 }

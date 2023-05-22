@@ -5,8 +5,8 @@ import CircleIndicator from "./CircleIndicator";
 export default function QuantityIndicator({ currentId, quantity }) {
   const indicators = [];
   for (let i = 0; i < quantity; i++) {
-    indicators.push(<CircleIndicator filled={i === currentId ? true : false} />);
-    indicators.push(<Box sx={{ width: 6 }} />)
+    indicators.push(<CircleIndicator key={indicators.length} filled={i === currentId ? true : false} />);
+    indicators.push(<Box key={indicators.length} sx={{ width: 6 }} />)
   }
 
   return (

@@ -7,6 +7,7 @@ import AuthContext from './components/context/AuthContext';
 import OAuth2Redirect from './components/oauth2/OAuth2Redirect';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
 import ProfilePage from './pages/ProfilePage';
 import AddOfferPage from './pages/AddOfferPage';
 import RequireAuth from './components/requireauth/RequireAuth';
@@ -14,6 +15,7 @@ import ListOffersPage from './pages/ListOffersPage';
 import OfferDetailsPage from './pages/OfferDetailsPage';
 import NotFoundPage from './pages/NotFoundPage';
 import { TOKEN_KEY_NAME } from './constants/consts';
+import ListMyOffersPage from './pages/ListMyOffersPage';
 
 function App() {
   const [user, setUser] = useState({ isFetched: false, token: sessionStorage.getItem(TOKEN_KEY_NAME) });
@@ -45,12 +47,14 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
             <Route path="/oauth2/redirect" element={<OAuth2Redirect />} />
             <Route path="/profile" element={<RequireAuth><ProfilePage /></RequireAuth>} />
             <Route path="/offer/add" element={<RequireAuth><AddOfferPage /></RequireAuth>} />
             <Route path="/offers" element={<ListOffersPage />} />
             <Route path="/notfound" element={<NotFoundPage />} />
             <Route path="/offer/details/:id" element={<OfferDetailsPage />} />
+            <Route path="/offers/my" element={<ListMyOffersPage />} />
           </Routes>
         </ThemeProvider>
       </AuthContext.Provider>
