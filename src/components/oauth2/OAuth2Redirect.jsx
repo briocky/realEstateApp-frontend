@@ -1,4 +1,4 @@
-import { useContext, useLayoutEffect } from "react";
+import { useLayoutEffect } from "react";
 import { Navigate } from "react-router-dom";
 import { getBasicUserInfo } from "../../services/userDataService";
 import { useAuthContext } from "../context/AuthContext";
@@ -16,9 +16,9 @@ export default function OAuth2Redirect() {
     });
 
     const jwtToken = cookies.get(TOKEN_KEY_NAME);
-    sessionStorage.setItem(TOKEN_KEY_NAME, jwtToken);
 
     if (jwtToken) {
+      sessionStorage.setItem(TOKEN_KEY_NAME, jwtToken);
       getBasicUserInfo().then((response) =>
         setUser({
           ...user,

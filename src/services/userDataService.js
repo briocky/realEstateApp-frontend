@@ -8,4 +8,16 @@ function getBasicUserInfo() {
     );
 }
 
-export { getBasicUserInfo }
+function getProfileData() {
+    const destinationUrl = BASE_URL + "/api/v1/user/profile";
+    return tokenAxios.get(
+        destinationUrl
+    );
+}
+
+function updateProfileData(data) {
+    const destinationUrl = BASE_URL + "/api/v1/user/profile/change/" + data.id;
+    return tokenAxios.put(destinationUrl, data);
+}
+
+export { getBasicUserInfo, getProfileData, updateProfileData }

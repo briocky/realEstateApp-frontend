@@ -13,7 +13,6 @@ import { Link } from "react-router-dom";
 import ProfileMenu from "../profilemenu/ProfileMenu";
 import { useAuthContext } from "../context/AuthContext";
 import { getBasicUserInfo } from "../../services/userDataService";
-import { TOKEN_KEY_NAME } from "../../constants/consts";
 
 const navItemWithIcon = [
   {
@@ -52,7 +51,7 @@ export default function Navbar() {
   const { user, setUser } = useAuthContext();
   const theme = useTheme();
 
-  if (!user.isFetched && sessionStorage.getItem(TOKEN_KEY_NAME)) {
+  if (!user.isFetched && user.token) {
     getBasicUserInfo().then((response) =>
       setUser({
         ...user,

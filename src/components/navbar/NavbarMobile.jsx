@@ -1,6 +1,6 @@
 import { Button, Typography, useTheme } from "@mui/material";
 import { Box, Container } from "@mui/system";
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import logo from "../../assets/logo_v8_no_bg_colors.png";
 import MapsHomeWorkOutlinedIcon from "@mui/icons-material/MapsHomeWorkOutlined";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -14,7 +14,6 @@ import { Link } from "react-router-dom";
 import ProfileMenu from "../profilemenu/ProfileMenu";
 import { useAuthContext } from "../context/AuthContext";
 import { getBasicUserInfo } from "../../services/userDataService";
-import { TOKEN_KEY_NAME } from "../../constants/consts";
 
 const navItemWithIcon = [
   {
@@ -53,7 +52,7 @@ export default function NavbarMobile() {
   const { user, setUser } = useAuthContext();
   const theme = useTheme();
 
-  if (!user.isFetched && sessionStorage.getItem(TOKEN_KEY_NAME)) {
+  if (!user.isFetched && user.token) {
     getBasicUserInfo().then((response) =>
       setUser({
         ...user,

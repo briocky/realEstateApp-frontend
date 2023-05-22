@@ -19,7 +19,7 @@ axios.interceptors.response.use(
   (response) => response,
   (error) => {
     let originalRequest = error.config;
-    if (error.response.status === TOKEN_EXPIRED.status &&
+    if (error.response?.status === TOKEN_EXPIRED.status &&
       error.response.data === TOKEN_EXPIRED.message) {
       return refreshAccessToken()
         .then((response) => {
