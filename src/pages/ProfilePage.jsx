@@ -1,4 +1,4 @@
-import { Alert, Box, Button, Container, Divider, Paper, TextField, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { Alert, Avatar, Box, Button, Container, Divider, Paper, TextField, Typography, useMediaQuery, useTheme } from "@mui/material";
 import Navbar from "../components/navbar/Navbar";
 import NavbarMobile from "../components/navbar/NavbarMobile";
 import Footer from "../components/footer/Footer";
@@ -122,7 +122,11 @@ export default function ProfilePage() {
             value={user.verified ? "tak" : "nie"} variant="outlined" sx={{ mb: 2, mr: 2 }}
             InputProps={{ readOnly: true, }} InputLabelProps={{ shrink: true }} />
           {user.pictureUrl &&
-            <img width="50" height="50" alt="profilePicture" src={user.pictureUrl} />}
+            <Avatar sx={{ mr: 2 }}
+              alt={user.firstName + " " + user.lastName}
+              src={user.pictureUrl}
+            />
+          }
           <TextField name={pictureUrlInput} label="Adres zdjęcia" variant="outlined"
             value={user.pictureUrl || ""} placeholder={"Nie podano"} InputLabelProps={{ shrink: true }}
             onChange={(e) => handleInput(e)} sx={{ mb: 2, mr: 2 }} />

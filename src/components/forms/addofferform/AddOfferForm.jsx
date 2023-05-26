@@ -8,20 +8,18 @@ import {
   Stepper,
   Typography,
 } from "@mui/material";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import BasicInfoStage from "./stages/BasicInfoStage";
 import AdditionalInfoStage from "./stages/AdditionalInfoStage";
 import OfferSummary from "./stages/OfferSummary";
 import { validateBasicInfoStep, validateAdditionalDataStep } from "./validations";
 import { addOffer } from "../../../services/offerService";
-import AuthContext from "../../context/AuthContext";
 import { buildOfferData } from "./utils";
 
 const steps = ["Podstawowe dane", "Szczegóły oferty", "Podsumowanie"];
 
 export default function AddOfferForm({ setAlertMessage }) {
   const [activeStep, setActiveStep] = useState(0);
-  const { user, setUser } = useContext(AuthContext);
 
   const [basicInfo, setBasicInfo] = useState({
     realEstateType: {
@@ -174,7 +172,9 @@ export default function AddOfferForm({ setAlertMessage }) {
       <Divider sx={{ mb: 2 }} />
 
       {activeStep === steps.length ? (
-        <Typography>WYSYŁAM DANE!</Typography>
+        <Box sx={{ display: "flex", justifyContent: 'center' }}>
+          <Typography>WYSYŁAM DANE!</Typography>
+        </Box>
       ) : (
         <Box>
           {(() => {

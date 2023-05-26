@@ -15,6 +15,7 @@ import AttachMoneyOutlinedIcon from '@mui/icons-material/AttachMoneyOutlined';
 import AssignmentOutlinedIcon from '@mui/icons-material/AssignmentOutlined';
 import Footer from "../components/footer/Footer";
 import { useAuthContext } from "../components/context/AuthContext";
+import { APARTMENT, HOUSE, PLOT, RENT, SALE } from "../constants/consts";
 
 export default function OfferDetailsPage() {
   const { user } = useAuthContext();
@@ -24,6 +25,35 @@ export default function OfferDetailsPage() {
   const { id } = useParams();
   const navigate = useNavigate();
 
+  function getOfferTypeAsText(realEstateType) {
+    let type;
+    switch (realEstateType) {
+      case SALE.variable:
+        type = SALE.asText;
+        break;
+      default:
+        type = RENT.asText;
+        break;
+    }
+    return type;
+  }
+
+  function getRealEstateTypeAsText(realEstateType) {
+    let type;
+    switch (realEstateType) {
+      case APARTMENT.variable:
+        type = APARTMENT.asText;
+        break;
+      case PLOT.variable:
+        type = PLOT.asText;
+        break;
+      default:
+        type = HOUSE.asText;
+        break;
+    }
+    return type;
+  }
+
   let dataSections = [];
   if (offer !== null) {
     dataSections = [
@@ -31,8 +61,8 @@ export default function OfferDetailsPage() {
         title: "Ogólne informacje",
         icon: <InfoOutlinedIcon />,
         data: [
-          ["Typ oferty", offer.offerType === "SALE" ? "sprzedaż" : "wynajem"],
-          ["Typ nieruchomości", offer.realEstate.realEstateType],
+          ["Typ oferty", getOfferTypeAsText(offer.offerType)],
+          ["Typ nieruchomości", getRealEstateTypeAsText(offer.realEstate.realEstateType)],
           ["Powierzchnia", offer.realEstate.area + " m²"],
           ["Liczba pokoi", offer.realEstate.realEstateType !== "PLOT" ? offer.realEstate.roomCount : "---"]
         ]
@@ -97,7 +127,7 @@ export default function OfferDetailsPage() {
           });
         }
       })
-  }, [id, navigate]);
+  }, [id, navigate, user.token]);
 
   return (
     <Container maxWidth={false} disableGutters sx={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>

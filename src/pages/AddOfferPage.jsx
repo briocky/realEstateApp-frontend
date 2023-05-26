@@ -32,7 +32,7 @@ export default function AddOfferPage() {
           position: 'relative',
           backgroundImage: `url(${bgImg})`,
           backgroundSize: "cover",
-          height: "100vh"
+          minHeight: "100vh"
         }}
       >
         {alertMessage !== "" &&

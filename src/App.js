@@ -16,6 +16,11 @@ import OfferDetailsPage from './pages/OfferDetailsPage';
 import NotFoundPage from './pages/NotFoundPage';
 import { TOKEN_KEY_NAME } from './constants/consts';
 import ListMyOffersPage from './pages/ListMyOffersPage';
+import ContactPage from './pages/ContactPage';
+import AboutUsPage from './pages/AboutUsPage';
+import ReportProblem from './pages/ReportProblem';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 
 function App() {
   const [user, setUser] = useState({ isFetched: false, token: sessionStorage.getItem(TOKEN_KEY_NAME) });
@@ -43,20 +48,25 @@ function App() {
   return (
     <div className="App">
       <AuthContext.Provider value={{ user, setUser }}>
-        <ThemeProvider theme={theme}>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/register" element={<RegisterPage />} />
-            <Route path="/oauth2/redirect" element={<OAuth2Redirect />} />
-            <Route path="/profile" element={<RequireAuth><ProfilePage /></RequireAuth>} />
-            <Route path="/offer/add" element={<RequireAuth><AddOfferPage /></RequireAuth>} />
-            <Route path="/offers" element={<ListOffersPage />} />
-            <Route path="/notfound" element={<NotFoundPage />} />
-            <Route path="/offer/details/:id" element={<OfferDetailsPage />} />
-            <Route path="/offers/my" element={<ListMyOffersPage />} />
-          </Routes>
-        </ThemeProvider>
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <ThemeProvider theme={theme}>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/register" element={<RegisterPage />} />
+              <Route path="/oauth2/redirect" element={<OAuth2Redirect />} />
+              <Route path="/profile" element={<RequireAuth><ProfilePage /></RequireAuth>} />
+              <Route path="/offer/add" element={<RequireAuth><AddOfferPage /></RequireAuth>} />
+              <Route path="/offers" element={<ListOffersPage />} />
+              <Route path="/notfound" element={<NotFoundPage />} />
+              <Route path="/offer/details/:id" element={<OfferDetailsPage />} />
+              <Route path="/offers/my" element={<ListMyOffersPage />} />
+              <Route path="/contact" element={<ContactPage />} />
+              <Route path="/about" element={<AboutUsPage />} />
+              <Route path="/reportProblem" element={<ReportProblem />} />
+            </Routes>
+          </ThemeProvider>
+        </LocalizationProvider>
       </AuthContext.Provider>
     </div>
   );

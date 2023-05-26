@@ -1,20 +1,18 @@
-import { Box, FormControl, Grid, InputAdornment, InputLabel, MenuItem, Select, TextField, Button, useTheme, FormHelperText } from "@mui/material";
-import PlaceIcon from "@mui/icons-material/Place";
-import { useState } from "react";
+import { Box, FormControl, Grid, InputAdornment, InputLabel, MenuItem, Select, TextField, FormHelperText } from "@mui/material";
+import { APARTMENT, HOUSE, PLOT, SALE } from "../../../../constants/consts";
 
-export default function BasicInfoStage({ basicInfo, setBasicInfo, basicInfoErrors }) {
-  const theme = useTheme();
+export default function BasicInfoStage({ basicInfo, setBasicInfo }) {
 
   function handleInput(e) {
     const fieldName = e.target.name;
     const value = e.target.value;
     const regexResult = value.match(basicInfo[fieldName].validationRule);
-    
+
     setBasicInfo({
-      ...basicInfo, 
+      ...basicInfo,
       [fieldName]: {
-        ...basicInfo[fieldName], 
-        value: value, 
+        ...basicInfo[fieldName],
+        value: value,
         error: !regexResult
       }
     });
@@ -27,30 +25,30 @@ export default function BasicInfoStage({ basicInfo, setBasicInfo, basicInfoError
           <FormControl sx={{ width: "100%" }} size="small">
             <InputLabel id="real-estate-type-label">Typ nieruchomości</InputLabel>
             <Select
-              labelId="real-estate-type-label" name="realEstateType" id="real-estate-type-select" 
-              value={basicInfo.realEstateType.value} label="Typ nieruchomości" 
+              labelId="real-estate-type-label" name="realEstateType" id="real-estate-type-select"
+              value={basicInfo.realEstateType.value} label="Typ nieruchomości"
               onChange={(event) => handleInput(event)}
               error={basicInfo.realEstateType.error}>
-              <MenuItem value={"APARTMENT"}>Mieszkanie</MenuItem>
-              <MenuItem value={"HOUSE"}>Dom</MenuItem>
-              <MenuItem value={"PLOT"}>Działka</MenuItem>
+              <MenuItem value={APARTMENT.variable}>Mieszkanie</MenuItem>
+              <MenuItem value={HOUSE.variable}>Dom</MenuItem>
+              <MenuItem value={PLOT.variable}>Działka</MenuItem>
             </Select>
-            <FormHelperText sx={{color: "#d32f2f"}} hidden={!basicInfo.realEstateType.error}>{basicInfo.realEstateType.errorMessage}</FormHelperText>
+            <FormHelperText sx={{ color: "#d32f2f" }} hidden={!basicInfo.realEstateType.error}>{basicInfo.realEstateType.errorMessage}</FormHelperText>
           </FormControl>
         </Grid>
 
         <Grid item xs={6} md={4}>
           <FormControl sx={{ width: "100%" }} size="small">
             <InputLabel id="offer-type-label">Typ oferty</InputLabel>
-            <Select 
-              labelId="offer-type-label" id="offer-type-select" name="offerType" 
-              value={basicInfo.offerType.value} label="Typ oferty" 
+            <Select
+              labelId="offer-type-label" id="offer-type-select" name="offerType"
+              value={basicInfo.offerType.value} label="Typ oferty"
               onChange={(event) => handleInput(event)}
               error={basicInfo.offerType.error}>
-              <MenuItem value={"SALE"}>Na sprzedaż</MenuItem>
-              <MenuItem value={"RENT"}>Wynajem</MenuItem>
+              <MenuItem value={SALE.variable}>Na sprzedaż</MenuItem>
+              {/*<MenuItem value={"RENT"}>Wynajem</MenuItem>*/}
             </Select>
-            <FormHelperText sx={{color: "#d32f2f"}} hidden={!basicInfo.offerType.error}>{basicInfo.offerType.errorMessage}</FormHelperText>
+            <FormHelperText sx={{ color: "#d32f2f" }} hidden={!basicInfo.offerType.error}>{basicInfo.offerType.errorMessage}</FormHelperText>
           </FormControl>
         </Grid>
 
@@ -58,7 +56,7 @@ export default function BasicInfoStage({ basicInfo, setBasicInfo, basicInfoError
           <TextField
             sx={{ width: "100%" }}
             size="small" label="Liczba pokoi" type="number" name="roomCount"
-            disabled={basicInfo.realEstateType.value === "dzialka" ? true : false} 
+            disabled={basicInfo.realEstateType.value === PLOT.variable ? true : false}
             id="outlined-number" onChange={(event) => handleInput(event)}
             value={basicInfo.roomCount.value} InputLabelProps={{ shrink: true, }}
             error={basicInfo.roomCount.error}
@@ -81,7 +79,7 @@ export default function BasicInfoStage({ basicInfo, setBasicInfo, basicInfoError
 
         <Grid item xs={12} md={6} display="flex" alignItems="center">
           <TextField
-            size="small" fullWidth label="Powierzchnia" type="number" name="area" 
+            size="small" fullWidth label="Powierzchnia" type="number" name="area"
             id="area" value={basicInfo.area.value} onChange={(event) => handleInput(event)}
             error={basicInfo.area.error}
             helperText={basicInfo.area.error && basicInfo.area.errorMessage}
@@ -96,7 +94,7 @@ export default function BasicInfoStage({ basicInfo, setBasicInfo, basicInfoError
         <Grid item xs={12}>
           <TextField
             size="small" fullWidth label="Tytuł oferty" type="text" name="offerTitle"
-            id="offerTitle" value={basicInfo.offerTitle.value} 
+            id="offerTitle" value={basicInfo.offerTitle.value}
             onChange={(event) => handleInput(event)} error={basicInfo.offerTitle.error}
             helperText={basicInfo.offerTitle.error && basicInfo.offerTitle.errorMessage} />
         </Grid>
