@@ -51,6 +51,10 @@ export default function Navbar() {
   const { user, setUser } = useAuthContext();
   const theme = useTheme();
 
+  if (document.body.classList.contains("mobile-menu-opened")) {
+    document.body.classList.remove("mobile-menu-opened");
+  }
+
   if (!user.isFetched && user.token) {
     getBasicUserInfo().then((response) =>
       setUser({
