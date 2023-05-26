@@ -1,5 +1,3 @@
-import { useState } from "react"
-
 
 export default function CircleIndicator({ filled }) {
   const defaultColor = "#8C8C89";

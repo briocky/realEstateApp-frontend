@@ -15,17 +15,17 @@ export default function Footer() {
       <Box sx={{ pr: 5 }}>
         <ul style={{ listStyle: "none", display: "flex" }}>
           <li style={{ marginRight: "0.7rem" }}>
-            <Link href="/" color="black" underline="none">
+            <Link href="/contact" color="black" underline="none">
               {'Kontakt'}
             </Link>
           </li>
           <li style={{ marginRight: "0.7rem" }}>
-            <Link href="/" color="black" underline="none">
+            <Link href="/about" color="black" underline="none">
               {'O nas'}
             </Link>
           </li>
           <li>
-            <Link href="/" color="black" underline="none">
+            <Link href="/reportProblem" color="black" underline="none">
               {'Zgłoś problem'}
             </Link>
           </li>
