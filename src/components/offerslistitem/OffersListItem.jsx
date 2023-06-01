@@ -56,7 +56,7 @@ export default function OffersListItem({ elementData, myOffersList = false, dele
               </ListItem>
               <ListItem sx={{ py: 0 }}>
                 <NumbersIcon sx={{ mr: 1 }} />
-                <ListItemText primary={elementData.roomCount + " pokoi"} />
+                <ListItemText primary={(elementData.roomCount || "-") + " pokoi"} />
               </ListItem>
               <ListItem sx={{ py: 0 }}>
                 <PlaceIcon sx={{ mr: 1 }} />

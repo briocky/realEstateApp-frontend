@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { editOfferDetails, getOfferDetailsToEdit } from "../services/offerService";
 import { useNavigate, useParams } from "react-router";
 import { NOT_FOUND } from "../constants/statusCodes";
-import { APARTMENT } from "../constants/consts";
+import { APARTMENT, PLOT } from "../constants/consts";
 
 
 export default function OfferEditPage() {
@@ -145,7 +145,7 @@ export default function OfferEditPage() {
             onChange={(e) => handleInput(e)} />
           <TextField name={roomCountInput} label="Liczba pokoi" variant="outlined"
             value={offer.roomCount || ""} InputLabelProps={{ shrink: true }}
-            type="number"
+            type="number" disabled={offer.realEstateType === PLOT.variable}
             onChange={(e) => handleInput(e)} sx={{ mb: 2, mr: 2 }} />
           <TextField label="Powierzchnia"
             value={offer.area || ""} variant="outlined" sx={{ mb: 2, mr: 2 }}

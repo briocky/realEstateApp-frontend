@@ -1,3 +1,4 @@
+import { PLOT } from "../../../constants/consts";
 
 function validateAdditionalDataStep(additionalInfo, setAdditionalInfo) {
     const skipValidationFields = ["pictures", "description"];
@@ -25,7 +26,7 @@ function validateBasicInfoStep(basicInfo, setBasicInfo) {
     let errors;
 
     for (const [key, data] of Object.entries(basicInfo)) {
-        if (key === "roomCount" && basicInfo.realEstateType.value === "dzialka") {
+        if (key === "roomCount" && basicInfo.realEstateType.value === PLOT.variable) {
             continue;
         }
         regexResult = data.value.match(data.validationRule);
