@@ -40,6 +40,11 @@ function getOfferDetails(offerId, token) {
     return noConfigAxios.get(destinationUrl);
 }
 
+function getOfferDetailsToEdit(offerId) {
+  const destinationUrl = BASE_URL + "/api/v1/offer/toEdit/" + offerId;
+  return tokenAxios.get(destinationUrl);
+}
+
 function getMyOffers(params) {
   const destinationUrl = BASE_URL + "/api/v1/offer/my";
   return tokenAxios.get(destinationUrl, { params: params });
@@ -50,4 +55,9 @@ function deleteOffer(id) {
   return tokenAxios.delete(destinationUrl);
 }
 
-export { addOffer, searchOffers, getOfferDetails, getMyOffers, deleteOffer }
+function editOfferDetails(id, offerData) {
+  const destinationUrl = BASE_URL + "/api/v1/offer/edit/" + id;
+  return tokenAxios.put(destinationUrl, offerData);
+}
+
+export { addOffer, searchOffers, getOfferDetails, getMyOffers, deleteOffer, editOfferDetails, getOfferDetailsToEdit }

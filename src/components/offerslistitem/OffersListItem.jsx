@@ -8,12 +8,24 @@ import { Link } from "react-router-dom";
 import noHouseImage from '../../assets/no_house_picture.png';
 import CloseIcon from '@mui/icons-material/Close';
 import { deleteOffer } from "../../services/offerService";
+import { APARTMENT, HOUSE, PLOT } from "../../constants/consts";
 
 export default function OffersListItem({ elementData, myOffersList = false, deleteOfferFromList }) {
   function handleOfferDelete() {
     deleteOffer(elementData.id).then((response) => {
       deleteOfferFromList(elementData.id);
     });
+  }
+
+  function getTypeAsText(type) {
+    switch (type) {
+      case APARTMENT.variable:
+        return APARTMENT.asText;
+      case HOUSE.variable:
+        return HOUSE.asText;
+      default:
+        return PLOT.asText;
+    }
   }
 
   return (
@@ -52,7 +64,7 @@ export default function OffersListItem({ elementData, myOffersList = false, dele
               </ListItem>
               <ListItem sx={{ py: 0 }}>
                 <GiteIcon sx={{ mr: 1 }} />
-                <ListItemText primary={elementData.realEstateType} />
+                <ListItemText primary={getTypeAsText(elementData.realEstateType)} />
               </ListItem>
             </List>
           </Box>
@@ -64,10 +76,18 @@ export default function OffersListItem({ elementData, myOffersList = false, dele
             <PaidIcon sx={{ mr: 1 }} />
             <Typography variant="h5" fontFamily={"poppins"}>{elementData.price} zł</Typography>
           </Box>
-          <Button component={Link} to={"/offer/details/" + elementData.id}
-            variant="contained" color="info" sx={{ width: "fit-content" }}>
-            Pokaż szczegóły
-          </Button>
+          <Box sx={{ display: "flex", flexDirection: { xs: "column", sm: "row", md: "column" } }}>
+            <Button component={Link} to={"/offer/details/" + elementData.id}
+              variant="contained" color="info" sx={{ width: "fit-content" }}>
+              Pokaż szczegóły
+            </Button>
+            {myOffersList &&
+              <Button component={Link} to={"/offer/edit/" + elementData.id} variant="contained"
+                color="success" sx={{ mt: { xs: 1, sm: 0, md: 1 }, ml: { sm: 2, md: 0 } }}>
+                Edytuj
+              </Button>
+            }
+          </Box>
         </Grid>
       </Grid>
     </Paper>

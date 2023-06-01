@@ -21,6 +21,8 @@ import AboutUsPage from './pages/AboutUsPage';
 import ReportProblem from './pages/ReportProblem';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import LoggedOut from './components/loggedout/LoggedOut';
+import OfferEditPage from './pages/OfferEditPage';
 
 function App() {
   const [user, setUser] = useState({ isFetched: false, token: sessionStorage.getItem(TOKEN_KEY_NAME) });
@@ -52,15 +54,16 @@ function App() {
           <ThemeProvider theme={theme}>
             <Routes>
               <Route path="/" element={<HomePage />} />
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/register" element={<RegisterPage />} />
+              <Route path="/login" element={<LoggedOut><LoginPage /></LoggedOut>} />
+              <Route path="/register" element={<LoggedOut><RegisterPage /></LoggedOut>} />
               <Route path="/oauth2/redirect" element={<OAuth2Redirect />} />
               <Route path="/profile" element={<RequireAuth><ProfilePage /></RequireAuth>} />
               <Route path="/offer/add" element={<RequireAuth><AddOfferPage /></RequireAuth>} />
               <Route path="/offers" element={<ListOffersPage />} />
               <Route path="/notfound" element={<NotFoundPage />} />
               <Route path="/offer/details/:id" element={<OfferDetailsPage />} />
-              <Route path="/offers/my" element={<ListMyOffersPage />} />
+              <Route path="/offers/my" element={<RequireAuth><ListMyOffersPage /></RequireAuth>} />
+              <Route path="/offer/edit/:id" element={<RequireAuth><OfferEditPage /></RequireAuth>} />
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/about" element={<AboutUsPage />} />
               <Route path="/reportProblem" element={<ReportProblem />} />
