@@ -110,7 +110,7 @@ export default function OfferEditPage() {
       {matches && <NavbarMobile />}
       <Paper sx={{ width: { xs: "90%", md: "50%" }, m: "auto" }}>
         <Box sx={{ textAlign: "center", mt: 2 }}>
-          <Typography variant="h5">Dane profilowe</Typography>
+          <Typography variant="h5">Dane oferty</Typography>
         </Box>
         <Box sx={{ display: "flex", justifyContent: "center", mb: 3, mt: 1 }}>
           <Divider sx={{ width: "80%" }} />
